@@ -2,8 +2,8 @@
 
 -- № 5-1 
 
--- SELECT DISTINCT city FROM prod ORDER BY city DESC;
--- SELECT DISTINCT city FROM prod WHERE city ILIKE 'm%w' ORDER BY city DESC;
+-- SELECT DISTINCT city FROM prod;
+-- SELECT DISTINCT city FROM prod WHERE city ILIKE 'm%w';
 
 -- № 5-2
 -- SELECT name FROM cust;
@@ -20,8 +20,6 @@
 -- № 5-5
 -- SELECT EXTRACT(second FROM CURRENT_TIME);
 -- SELECT DATE_PART('second', CURRENT_TIME);
--- SELECT EXTRACT(second FROM CURRENT_DATE); -- ERROR:  единица "second" для типа date не поддерживается 
--- SELECT DATE_PART('second', CURRENT_DATE); -- возвращает 0
 
 -- № 5-6
 -- SELECT DISTINCT ord_date FROM ord;
@@ -33,8 +31,20 @@
 
 -- № 5-8
 --	INSERT INTO sal (snum, name, comm, city) VALUES (7, 'Aegis', 0.13, 'Moscow');
--- 	SELECT name FROM sal;
+-- SELECT name FROM sal;
 --	SELECT name FROM sal WHERE name ~* '[qwrtpsdfghjklzxcvbnm][qwrtpsdfghjklzxcvbnm]';
 --	SELECT name FROM sal WHERE name ~* '[^aeyuio][^aeyuio]';
 -- 	DELETE FROM sal WHERE name = 'Aegis';
+
+
+-- ЗАЩИТА 
+-- SELECT 1 WHERE '630054, ул. Кирова, 85 - 30'~ '630[0-9]{3}, ул\. [А-Я][а-я]*, [0-9][0-9]? [-|—] [0-9][0-9]?';
+-- SELECT 1 WHERE '630078, ул. Ленина, 49 - 1'~ '630[0-9]{3}, ул\. [А-Я][а-я]*, [0-9][0-9]? [-|—] [0-9][0-9]?';
+-- SELECT 1 WHERE '630068, ул. Крылова, 31 - 18'~ '630[0-9]{3}, ул\. [А-Я][а-я]*, [0-9][0-9]? [-|—] [0-9][0-9]?';
+
+-- SELECT 1 WHERE 'Пушкин А.С. «Повести Белкина» — М. — 1910' ~ '[А-Я][а-я]* [А-Я]\.[А-Я]\. «[А-Я][а-я][а-я][а-я|А-Я| ]*» — [М|(СПб)]*\. — [12][890][1234567890][1234567890]';
+-- SELECT 1 WHERE 'Лермонтов М.Ю. «Герой нашего времени» — СПб. — 1952' ~ '[А-Я][а-я]* [А-Я]\.[А-Я]\. «[А-Я][а-я][а-я][а-я|А-Я| ]*» — [М|(СПб)]*\. — [12][890][1234567890][1234567890]';
+-- SELECT 1 WHERE 'Толстой Л.Н. «Война и мир» — М. — 1930' ~ '[А-Я][а-я]* [А-Я]\.[А-Я]\. «[А-Я][а-я][а-я][а-я|А-Я| ]*» — [М|(СПб)]*. — [12][890][1234567890][1234567890]';
+
+
 
