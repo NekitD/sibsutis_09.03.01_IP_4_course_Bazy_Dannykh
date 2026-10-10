@@ -1,0 +1,111 @@
+-- SET SEARCH_PATH TO my_schema
+
+-- № 5-1
+-- SELECT*FROM pg_indexes WHERE schemaname = 'my_schema'
+
+-- № 5-2
+-- CREATE INDEX idx_cust_city ON cust(city);
+-- EXPLAIN ANALYZE
+-- SELECT*FROM cust ORDER BY city;
+
+-- № 5-3
+-- INSERT INTO cust 
+-- VALUES ( generate_series(1, 1000), 'test_name', 100, 'test_city' );
+-- EXPLAIN ANALYZE
+-- SELECT*FROM cust ORDER BY city;
+
+-- № 5-4
+-- CREATE TABLE all_table AS
+-- SELECT 
+-- ord.onum, prod.pnum, sal.snum, cust.cnum, 
+-- ord.amt AS oamt, ord.ord_date AS odate, 
+-- prod.name AS pame, prod.weight AS pweight, prod.city AS pcity,
+-- sal.name AS sname, sal.comm AS scomm, sal.city AS scity, 
+-- cust.name AS cname, cust.rating AS crating, cust.city AS ccity
+-- FROM ord 
+-- INNER JOIN prod ON ord.pnum = prod.pnum 
+-- INNER JOIN sal ON ord.snum = sal.snum 
+-- INNER JOIN cust ON ord.cnum = cust.cnum
+-- GROUP BY ord.onum, sal.snum, prod.pnum, cust.cnum
+-- HAVING 
+-- ord.amt > (SELECT AVG(amt) FROM ord) 
+-- AND 
+-- prod.city != 'Saint Petersburg'
+-- AND
+-- ord.snum IN (SELECT snum FROM ord GROUP BY snum HAVING COUNT(*) <= 10)
+-- AND
+-- cust.rating > (SELECT MIN(rating) FROM cust WHERE city = 'Moscow');
+
+-- SELECT*FROM all_table;
+
+-- № 5-5
+-- CREATE VIEW all_view AS
+-- SELECT 
+-- ord.onum, prod.pnum, sal.snum, cust.cnum, 
+-- ord.amt AS oamt, ord.ord_date AS odate, 
+-- prod.name AS pame, prod.weight AS pweight, prod.city AS pcity,
+-- sal.name AS sname, sal.comm AS scomm, sal.city AS scity, 
+-- cust.name AS cname, cust.rating AS crating, cust.city AS ccity
+-- FROM ord 
+-- INNER JOIN prod ON ord.pnum = prod.pnum 
+-- INNER JOIN sal ON ord.snum = sal.snum 
+-- INNER JOIN cust ON ord.cnum = cust.cnum
+-- GROUP BY ord.onum, sal.snum, prod.pnum, cust.cnum
+-- HAVING 
+-- ord.amt > (SELECT AVG(amt) FROM ord) 
+-- AND 
+-- prod.city != 'Saint Petersburg'
+-- AND
+-- ord.snum IN (SELECT snum FROM ord GROUP BY snum HAVING COUNT(*) <= 10)
+-- AND
+-- cust.rating > (SELECT MIN(rating) FROM cust WHERE city = 'Moscow');
+
+-- SELECT*FROM all_view;
+
+-- № 5-6
+-- CREATE MATERIALIZED VIEW all_mat_view AS
+-- SELECT 
+-- ord.onum, prod.pnum, sal.snum, cust.cnum, 
+-- ord.amt AS oamt, ord.ord_date AS odate, 
+-- prod.name AS pame, prod.weight AS pweight, prod.city AS pcity,
+-- sal.name AS sname, sal.comm AS scomm, sal.city AS scity, 
+-- cust.name AS cname, cust.rating AS crating, cust.city AS ccity
+-- FROM ord 
+-- INNER JOIN prod ON ord.pnum = prod.pnum 
+-- INNER JOIN sal ON ord.snum = sal.snum 
+-- INNER JOIN cust ON ord.cnum = cust.cnum
+-- GROUP BY ord.onum, sal.snum, prod.pnum, cust.cnum
+-- HAVING 
+-- ord.amt > (SELECT AVG(amt) FROM ord) 
+-- AND 
+-- prod.city != 'Saint Petersburg'
+-- AND
+-- ord.snum IN (SELECT snum FROM ord GROUP BY snum HAVING COUNT(*) <= 10)
+-- AND
+-- cust.rating > (SELECT MIN(rating) FROM cust WHERE city = 'Moscow');
+
+-- SELECT*FROM all_mat_view;
+
+-- № 5-7
+-- WITH all_with AS (
+-- 	SELECT 
+-- 	ord.onum, prod.pnum, sal.snum, cust.cnum, 
+-- 	ord.amt AS oamt, ord.ord_date AS odate, 
+-- 	prod.name AS pame, prod.weight AS pweight, prod.city AS pcity,
+-- 	sal.name AS sname, sal.comm AS scomm, sal.city AS scity, 
+-- 	cust.name AS cname, cust.rating AS crating, cust.city AS ccity
+-- 	FROM ord 
+-- 	INNER JOIN prod ON ord.pnum = prod.pnum 
+-- 	INNER JOIN sal ON ord.snum = sal.snum 
+-- 	INNER JOIN cust ON ord.cnum = cust.cnum
+-- 	GROUP BY ord.onum, sal.snum, prod.pnum, cust.cnum
+-- 	HAVING 
+-- 	ord.amt > (SELECT AVG(amt) FROM ord) 
+-- 	AND 
+-- 	prod.city != 'Saint Petersburg'
+-- 	AND
+-- 	ord.snum IN (SELECT snum FROM ord GROUP BY snum HAVING COUNT(*) <= 10)
+-- 	AND
+-- 	cust.rating > (SELECT MIN(rating) FROM cust WHERE city = 'Moscow')
+-- )
+-- SELECT*FROM all_with;
