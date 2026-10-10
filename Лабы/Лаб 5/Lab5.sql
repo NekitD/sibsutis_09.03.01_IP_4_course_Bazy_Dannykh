@@ -13,10 +13,10 @@
 -- № 5-3
 -- SELECT cnum, name FROM cust;
 
-SELECT cust.name, COUNT(ord.onum)
-FROM (cust LEFT JOIN ord ON cust.cnum = ord.cnum AND cust.name ~ '^[AI]')
-GROUP BY cust.name
-ORDER BY cust.name;
+-- SELECT cust.name, COUNT(ord.onum)
+-- FROM (cust LEFT JOIN ord ON cust.cnum = ord.cnum AND cust.name ~ '^[AI]')
+-- GROUP BY cust.name
+-- ORDER BY cust.name;
 
 -- № 5-4
 -- SELECT DISTINCT ord.cnum, cust.cnum FROM (ord CROSS JOIN cust) WHERE ord.cnum < cust.cnum ORDER BY ord.cnum, cust.cnum;
