@@ -1,7 +1,7 @@
 -- SET SEARCH_PATH TO my_schema
 
 -- № 5-1
--- SELECT*FROM pg_indexes WHERE schemaname = 'my_schema'
+-- SELECT*FROM pg_indexes WHERE schemaname = 'my_schema';
 
 -- № 5-2
 -- CREATE INDEX idx_cust_city ON cust(city);
@@ -11,8 +11,11 @@
 -- № 5-3
 -- INSERT INTO cust 
 -- VALUES ( generate_series(1, 1000), 'test_name', 100, 'test_city' );
+
 -- EXPLAIN ANALYZE
 -- SELECT*FROM cust ORDER BY city;
+
+-- DELETE FROM cust WHERE name='test_name';
 
 -- № 5-4
 -- CREATE TABLE all_table AS
