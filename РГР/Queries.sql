@@ -13,7 +13,7 @@
 
 -- SELECT*FROM pumps;
 -- SELECT DISTINCT pumps.pump_number, fuel_types.name, employees.full_name FROM
--- (((sales INNER JOIN pumps USING(puid)) INNER JOIN fuel_types USING(fid)) INNER JOIN employees USING(eid))
+-- (((sales RIGHT JOIN pumps USING(puid)) LEFT JOIN fuel_types USING(fid)) LEFT JOIN employees USING(eid))
 -- WHERE sales.sale_time = (SELECT MAX(sale_time) FROM sales WHERE puid = pumps.puid); 
 
 
